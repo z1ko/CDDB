@@ -38,7 +38,6 @@ Solitamente il bot deve essere eseguito uno volta al giorno, per questo basta cr
 ```
 0 2 * * * docker run --rm cddb
 ```
-<<<<<<< HEAD
 
 ## TODO
 
@@ -48,5 +47,3 @@ Le seguenti features sono pianificate:
 - [ ] File di configurazione per il layout del messaggio promozionale
 - [x] Easter egg 
 
-=======
->>>>>>> d88840ba2c7868c4dd83748073155b35d53a9791
