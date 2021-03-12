@@ -6,3 +6,6 @@ python_dotenv == 0.15.0
 # CDDB/src/daily.py: 8
 # CDDB/src/main.py: 26
 python_telegram_bot == 13.3
+
+# CDDB/src/automaton.py: 3,4
+selenium == 3.141.0
