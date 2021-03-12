@@ -4,7 +4,7 @@ Questo semplice bot una volta avviato ottiene un prodotto casuale dal database d
 
 ## Installazione e Distribuzione - Docker
 
-Per scaricare il programma e creare un immagine docker chiamata **cddb_image** basta questo:
+Per scaricare il programma e creare un immagine docker chiamata **cddb** basta questo:
 
 ```
 git clone https://github.com/z1ko/CDDB.git
@@ -29,15 +29,16 @@ sono presenti tutte le variabili necessarie al corretto funzionamento del bot e 
 | TELEGRAM_TOKEN | Token che il bot usa su telegram, ottenuto da *@BotFather*. |
 | PRESTASHOP_FEED | Link al feed di prestashop per scaricare il catalogo usando il modulo di Facebook. |
 | TELEGRAM_CHANNEL_XXX | Nome del canali dove inviare il messaggio di offerta, nella forma *@NomeCanale*, divisi per italiano e inglese. |
-
+| DISCOUNT_CODE  | Codice da inserire ad ogni messaggio, utilizzabile poi nel negozio. |
 
 ## Cronjob
 
-Solitamente il bot deve essere eseguito uno volta al giorno, per questo basta creare una regola per cronjob, ad esempio per eseguire il bot **ogni giorno alle 2 di notte** tramite docker container:
+Solitamente il bot deve essere eseguito uno volta al giorno, per questo basta creare una regola per cron, ad esempio per eseguire il bot **ogni giorno alle 2 di notte** tramite docker container:
 
 ```
 0 2 * * * docker run --rm cddb
 ```
+<<<<<<< HEAD
 
 ## TODO
 
@@ -47,3 +48,5 @@ Le seguenti features sono pianificate:
 - [ ] File di configurazione per il layout del messaggio promozionale
 - [x] Easter egg 
 
+=======
+>>>>>>> d88840ba2c7868c4dd83748073155b35d53a9791
