@@ -33,7 +33,7 @@ sono presenti tutte le variabili necessarie al corretto funzionamento del bot e 
 
 ## Cronjob
 
-Solitamente il bot deve essere eseguito uno volta al giorno, per questo basta creare una regola per cronjob, ad esempio per eseguire il bot **ogni giorno alle 2 di notte** tramite docker container:
+Solitamente il bot deve essere eseguito uno volta al giorno, per questo basta creare una regola per cron, ad esempio per eseguire il bot **ogni giorno alle 2 di notte** tramite docker container:
 
 ```
 0 2 * * * docker run --rm cddb
