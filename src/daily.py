@@ -111,7 +111,7 @@ MSG_HTML_DAILY_ITA = """
 ⭐ <b>OFFERTA GIORNALIERA {date}</b> ⭐
 <u>{name}</u>
 
-🟠 Sconto extra:  {discount}
+🟠 Sconto extra:  {discount}%
 
 <b>CODICE SCONTO:</b> {code}
 
@@ -123,7 +123,7 @@ MSG_HTML_DAILY_ENG = """
 ⭐ <b>DAILY OFFER {date}</b> ⭐
 <u>{name}</u>
 
-🟠 Extra discount:  {discount}
+🟠 Extra discount:  {discount}%
 
 <b>DISCOUNT CODE:</b> {code}
 
