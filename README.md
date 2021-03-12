@@ -7,7 +7,7 @@ Questo semplice bot una volta avviato ottiene un prodotto casuale dal database d
 Per scaricare il programma e creare un immagine docker chiamata **CDDB_IMAGE** basta questo:
 
 ```
-git clone <this> 
+git clone https://github.com/z1ko/CDDB.git
 cd CDDB
 
 docker build -t CDDB_IMAGE
