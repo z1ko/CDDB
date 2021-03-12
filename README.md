@@ -16,7 +16,7 @@ docker build -t CDDB_IMAGE
 Per eseguire l'immagine in un container chiamato **CDDB**:
 
 ```
-docker run -name CDDB CDDB_IMAGE
+docker run --name CDDB CDDB_IMAGE
 ```
 
 ## Configurazione
