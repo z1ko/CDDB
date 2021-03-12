@@ -38,3 +38,12 @@ Solitamente il bot deve essere eseguito uno volta al giorno, per questo basta cr
 ```
 0 2 * * * docker run --rm cddb
 ```
+
+## TODO
+
+Le seguenti features sono pianificate:
+
+- [ ] Webscapper per eliminare il bisogno di cambiare manualmente le tag su prestashop (Moduli di prestashop sono ***cursati*** e non voglio toccarli) 
+- [ ] File di configurazione per il layout del messaggio promozionale
+- [x] Easter egg 
+
