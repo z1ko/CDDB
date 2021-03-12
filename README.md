@@ -4,19 +4,19 @@ Questo semplice bot una volta avviato ottiene un prodotto casuale dal database d
 
 ## Installazione e Distribuzione - Docker
 
-Per scaricare il programma e creare un immagine docker chiamata **CDDB_IMAGE** basta questo:
+Per scaricare il programma e creare un immagine docker chiamata **cddb_image** basta questo:
 
 ```
 git clone https://github.com/z1ko/CDDB.git
 cd CDDB
 
-docker build -t CDDB_IMAGE
+docker build . -t cddb
 ```
 
-Per eseguire l'immagine in un container chiamato **CDDB**:
+Per eseguire l'immagine in un container e poi eliminarlo:
 
 ```
-docker run --name CDDB CDDB_IMAGE
+docker run --rm cddb
 ```
 
 ## Configurazione
@@ -36,5 +36,5 @@ sono presenti tutte le variabili necessarie al corretto funzionamento del bot e 
 Solitamente il bot deve essere eseguito uno volta al giorno, per questo basta creare una regola per cronjob, ad esempio per eseguire il bot **ogni giorno alle 2 di notte** tramite docker container:
 
 ```
-0 2 * * * docker run --name CDDB CDDB_IMAGE
+0 2 * * * docker run --rm cddb
 ```

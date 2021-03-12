@@ -3,11 +3,11 @@ from os import extsep
 import xml.etree.ElementTree as ET
 import urllib.request
 import random
-import telegram.ext
 
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Bot
-from env      import get_env_panic
-from datetime import date
+from telegram.error import TelegramError
+from telegram       import InlineKeyboardButton, InlineKeyboardMarkup, Bot
+from env            import get_env_panic
+from datetime       import date
 
 # Stringa dinamica usata come prefisso dei tag
 G = "http://base.google.com/ns/1.0"
@@ -152,8 +152,8 @@ def send_daily_message_ita(product: Product, discount: int, today: date, bot: Bo
             parse_mode = 'html',
             caption = text,
         )
-    except:
-        print("[E] Errore invio messaggio daily")
+    except TelegramError as e:
+        print("[E] Errore invio messaggio daily: " + str(e))
 
 
 # Invia messaggio inglese per l'offerta del giorno
@@ -178,7 +178,7 @@ def send_daily_message_eng(product: Product, discount: int, today: date, bot: Bo
             parse_mode = 'html',
             caption = text,
         )
-    except:
-        print("[E] Errore invio messaggio daily")
+    except TelegramError as e:
+        print("[E] Errore invio messaggio daily: " + str(e))
 
     pass
