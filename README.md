@@ -29,7 +29,7 @@ sono presenti tutte le variabili necessarie al corretto funzionamento del bot e 
 | TELEGRAM_TOKEN | Token che il bot usa su telegram, ottenuto da *@BotFather*. |
 | PRESTASHOP_FEED | Link al feed di prestashop per scaricare il catalogo usando il modulo di Facebook. |
 | TELEGRAM_CHANNEL_XXX | Nome del canali dove inviare il messaggio di offerta, nella forma *@NomeCanale*, divisi per italiano e inglese. |
-
+| DISCOUNT_CODE  | Codice da inserire ad ogni messaggio, utilizzabile poi nel negozio. |
 
 ## Cronjob
 
