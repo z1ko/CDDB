@@ -2,7 +2,6 @@
 from time                                    import sleep
 from selenium                                import webdriver
 from selenium.webdriver.support.ui           import WebDriverWait
-from selenium.webdriver.firefox.options      import Options
 from selenium.common.exceptions              import TimeoutException
 from selenium.webdriver.support              import expected_conditions as EC
 from selenium.webdriver.common.by            import By
@@ -15,11 +14,8 @@ TIMEOUT_SEC = 120
 # Aggiunge prodotto alla categoria DAILY
 def prestashop_set_daily(old_product_name: str, new_product_name: str, login_email: str, login_passw: str, remove_old = True):
 
-    options = Options()
-    #options.headless = True
-
-    print("[I] Creazione webdriver Firefox... ", end = '')
-    driver = webdriver.Firefox(executable_path = "/usr/bin/geckodriver", options = options)
+    print("[I] Creazione webdriver PhantomJS... ", end = '')
+    driver = webdriver.PhantomJS(executable_path="/usr/local/bin/phantomjs")
     print("completato.")
 
     print("[I] Login in prestashop... ", end = '')

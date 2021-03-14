@@ -29,7 +29,7 @@ from env          import get_env_panic
 from dotenv       import load_dotenv 
 
 # Carica configurazione locale
-load_dotenv()
+load_dotenv("./conf/.env")
 
 # Collega a telegram
 token = get_env_panic("TELEGRAM_TOKEN")
@@ -42,12 +42,12 @@ if product != None:
 
     # Prova ad aggiungere il prodotto alla categoria daily
     try:
-
         # Percorso al file storico
         path = get_env_panic("LAST_PRODUCT_PATH")
 
         # Carica nome del precedente prodotto da rimuovere dalla DAILY
         with open(path, "r+") as last_product_file:
+            print("[I] Trovato file storico!")
 
             old_product_name = last_product_file.readline().strip()
             remove_old = True
@@ -72,6 +72,10 @@ if product != None:
 
             print("[I] Salvato nuovo nome prodotto in memoria: " + product.name)
             
+    except IOError as e:
+        print("[E] Errore apertura file storico: " + str(e))
+        exit(1)
+
     except:
         # TODO: Avverti della gravità della situazione
         print("[E] Errore generico durante la modifica della categoria DAILY su prestashop")

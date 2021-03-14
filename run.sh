@@ -1,0 +1,1 @@
+docker run --rm -v /mnt/c/Caneva937/CDDB/conf:/code/conf ziko/cddb:rpi
