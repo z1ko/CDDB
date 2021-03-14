@@ -166,7 +166,9 @@ def send_daily_message_eng(product: Product, discount: int, today: date, bot: Bo
         code     = get_env_panic("DISCOUNT_CODE")
     )
 
-    buttons = [[ InlineKeyboardButton("Link", url = product.link) ]]
+    # Il link inglese è diverso
+    shop_link = product.link.replace("caneva937.com/it", "caneva937.com/en")
+    buttons = [[ InlineKeyboardButton("Link", url = shop_link) ]]
     reply_markup = InlineKeyboardMarkup(buttons)
 
     channel_name = get_env_panic("TELEGRAM_CHANNEL_ENG")

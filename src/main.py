@@ -22,6 +22,7 @@
 
 import daily
 import datetime
+import automaton
 
 from telegram.ext import Updater
 from env          import get_env_panic
@@ -38,6 +39,44 @@ updater = Updater(token, use_context=True)
 feed = get_env_panic("PRESTASHOP_FEED")
 product = daily.get_random_product(feed)
 if product != None:
+
+    # Prova ad aggiungere il prodotto alla categoria daily
+    try:
+
+        # Percorso al file storico
+        path = get_env_panic("LAST_PRODUCT_PATH")
+
+        # Carica nome del precedente prodotto da rimuovere dalla DAILY
+        with open(path, "r+") as last_product_file:
+
+            old_product_name = last_product_file.readline().strip()
+            remove_old = True
+
+            if old_product_name == '':
+                print("[W] Non è stata trovata una vecchia offerta da sostituire")
+                remove_old = False
+            else:
+                print("[I] Ottenuto vecchio prodotto in offerta: " + old_product_name)
+
+            # Ottiene credenziali di accesso
+            login_email = get_env_panic("PRESTASHOP_EMAIL")
+            login_passw = get_env_panic("PRESTASHOP_PASSW")
+
+            print("[I] Avvio sequenza di settaggio categoria daily per " + product.name + " al posto di " + old_product_name)
+            automaton.prestashop_set_daily(old_product_name, product.name, login_email, login_passw, remove_old)
+
+            # Rimpiazza il vecchio nome
+            last_product_file.seek(0)
+            last_product_file.write(product.name)
+            last_product_file.truncate()
+
+            print("[I] Salvato nuovo nome prodotto in memoria: " + product.name)
+            
+    except:
+        # TODO: Avverti della gravità della situazione
+        print("[E] Errore generico durante la modifica della categoria DAILY su prestashop")
+        exit(1)
+
     today = datetime.date.today()
 
     # Invia ad entrambi i canali
