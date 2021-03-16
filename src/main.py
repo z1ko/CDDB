@@ -76,9 +76,9 @@ if product != None:
         print("[E] Errore apertura file storico: " + str(e))
         exit(1)
 
-    except:
+    except Exception as e:
         # TODO: Avverti della gravità della situazione
-        print("[E] Errore generico durante la modifica della categoria DAILY su prestashop")
+        print("[E] Errore generico durante la modifica della categoria DAILY su prestashop: " + str(e))
         exit(1)
 
     today = datetime.date.today()

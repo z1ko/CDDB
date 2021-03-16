@@ -1,21 +1,39 @@
 
-# Alpine compilato con glibc, per phantomjs
-FROM frolvlad/alpine-glibc
+############################# BASE #############################
+# Immagien base per avere selenium, firefox, geckodriver       #
+################################################################
 
-WORKDIR /code
+FROM ubuntu:groovy AS base
 
-COPY requirements.txt .
-COPY src/ .
+# Evitiamo di compilare con rust il pacchetto crypthography, 
+# troppo lungo da fare su un raspberry
+ENV CRYPTOGRAPHY_DONT_BUILD_RUST=1
 
-# Installa phantomjs già compilato per raspberry
-RUN apk --no-cache add gcc curl py-cryptography fontconfig freetype-dev && \
-    curl -o /tmp/phantomjs -sSL https://github.com/fg2it/phantomjs-on-raspberry/releases/download/v2.1.1-wheezy-jessie/phantomjs && \
-    mv /tmp/phantomjs /usr/local/bin/phantomjs && \
-    chmod a+x /usr/local/bin/phantomjs && \
-    rm -rf /tmp/phantomjs
+# Installa backbone: pip e firefox
+RUN apt-get update -y --fix-missing && apt-get install -y \
+    build-essential                                       \
+    libssl-dev                                            \
+    libffi-dev                                            \
+    python-dev                                            \
+    python3-pip                                           \
+    firefox-geckodriver                                   \
+    firefox
 
-# Installa python e librerie associate
-RUN apk add --no-cache python3 py3-pip && \
-    pip3 install -r requirements.txt
+# Crea ambiente di lavoro
+WORKDIR /app
+COPY ./requirements.txt /app/
 
-CMD ["python3", "./main.py"]
+# Installa librerie progetto
+RUN pip3 install -r requirements.txt
+ 
+############################# PROD #############################
+# Carica file sorgenti di python                               #
+################################################################
+
+FROM base AS prod
+
+RUN apt-get install -y xvfb && pip3 install PyVirtualDisplay
+
+COPY ./src/ /app/
+CMD python3 /app/main.py
+
