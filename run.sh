@@ -1,1 +1,1 @@
-docker run --rm -v /etc/cddb:/code/conf ziko/cddb:rpi
+docker run --rm -v /etc/cddb:/app/conf cddb

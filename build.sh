@@ -1,1 +1,1 @@
-docker build . -t z1ko/cddb:rpi
+docker build . -t cddb --target prod
