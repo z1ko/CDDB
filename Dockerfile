@@ -17,7 +17,8 @@ RUN apt-get update -y --fix-missing && apt-get install -y \
     python-dev                                            \
     python3-pip                                           \
     firefox-geckodriver                                   \
-    firefox
+    firefox						  \
+    xvfb
 
 # Crea ambiente di lavoro
 WORKDIR /app
@@ -31,8 +32,6 @@ RUN pip3 install -r requirements.txt
 ################################################################
 
 FROM base AS prod
-
-RUN apt-get install -y xvfb && pip3 install PyVirtualDisplay
 
 COPY ./src/ /app/
 CMD python3 /app/main.py
