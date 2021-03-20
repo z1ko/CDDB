@@ -5,7 +5,7 @@ from selenium                                import webdriver
 from selenium.webdriver.support.ui           import WebDriverWait
 from selenium.common.exceptions              import TimeoutException
 from selenium.webdriver.support              import expected_conditions as EC
-from selenium.webdriver.firefox.options      import Options
+from selenium.webdriver.chrome.options       import Options
 from selenium.webdriver.common.by            import By
 from selenium.common.exceptions              import WebDriverException
 
@@ -17,11 +17,15 @@ TIMEOUT_SEC = 180
 # Aggiunge prodotto alla categoria DAILY
 def prestashop_set_daily(old_product_name: str, new_product_name: str, login_email: str, login_passw: str, remove_old = True):
 
-    display = Display(visible = 0, size = (1920, 1080))
-    display.start()
+    #display = Display(visible = 0, size = (1920, 1080))
+    #display.start()
 
-    print("[I] Creazione webdriver Firefox... ", end = '', flush = True)
-    driver = webdriver.Firefox(executable_path = "/usr/bin/geckodriver")
+    options = Options()
+    options.add_argument("--headless")
+    options.Headless = True
+
+    print("[I] Creazione webdriver Chrome... ", end = '', flush = True)
+    driver = webdriver.Chrome(executable_path = "/usr/bin/chromedriver", chrome_options = options)
     print("completato.")
 
     print("[I] Login in prestashop... ", end = '', flush = True)
@@ -32,7 +36,7 @@ def prestashop_set_daily(old_product_name: str, new_product_name: str, login_ema
     __visit_products_list_page(driver)
     print("completato.")
 
-    print("[I] Accesso alla pagina di " + new_product_name + "... ", end = '', flush = True)
+    print("[I] Accesso alla pagina " + new_product_name + "... ", end = '', flush = True)
     __visit_product_page(driver, new_product_name)
     print("completato.")
 
@@ -89,39 +93,45 @@ def __visit_products_list_page(driver):
     catalog = catalog.find_element_by_tag_name("a")
 
     link = catalog.get_attribute('href')
+    print("[I] Link = " + link)
     driver.get(link)
 
 # Va nella pagina del prodotto
 def __visit_product_page(driver, product_name: str):
+    print("[I] Ottenimento colonna filtro\n")
 
     # Attente il caricamento della pagina...
-    try:
-        condition = EC.presence_of_element_located((By.NAME, "filter_column_name"))
-        WebDriverWait(driver, timeout = TIMEOUT_SEC).until(condition)
-
-    except TimeoutException:
-        print("[E] Timeout caricamento pagina")
-        return
+    #try:
+    #    condition = EC.visibility_of_element_located((By.NAME, "filter_column_name"))
+    #    WebDriverWait(driver, timeout = TIMEOUT_SEC).until(condition)
+    #
+    #except TimeoutException:
+    #    print("[E] Timeout caricamento pagina")
+    #    return
 
     # Resettiamo il filtro per evitare ricerche passate non cancellate
-    f1 = driver.find_element_by_id("filter_column_id_product_min")
-    f2 = driver.find_element_by_id("filter_column_id_product_max")
-    f3 = driver.find_element_by_name("filter_column_reference")
-    f4 = driver.find_element_by_name("filter_column_name_category")
-    f5 = driver.find_element_by_id("filter_column_price_min")
-    f6 = driver.find_element_by_id("filter_column_price_max")
-    f7 = driver.find_element_by_id("filter_column_sav_quantity_min")
-    f8 = driver.find_element_by_id("filter_column_sav_quantity_max")
+    sleep(5)
+    print("[I] Resettaggio filtro al default\n")
+    
+    #f1 = driver.find_element_by_id("filter_column_id_product_min")
+    #f2 = driver.find_element_by_id("filter_column_id_product_max")
+    #f3 = driver.find_element_by_name("filter_column_reference")
+    #f4 = driver.find_element_by_name("filter_column_name_category")
+    #f5 = driver.find_element_by_id("filter_column_price_min")
+    #f6 = driver.find_element_by_id("filter_column_price_max")
+    #f7 = driver.find_element_by_id("filter_column_sav_quantity_min")
+    #f8 = driver.find_element_by_id("filter_column_sav_quantity_max")
 
-    f1.clear()
-    f2.clear()
-    f3.clear()
-    f4.clear()
-    f5.clear()
-    f6.clear()
-    f7.clear()
-    f8.clear()
+    #f1.clear()
+    #f2.clear()
+    #f3.clear()
+    #f4.clear()
+    #f5.clear()
+    #f6.clear()
+    #f7.clear()
+    #f8.clear()
 
+    print("[I] Inserimento dati ricerca\n")
     filter = driver.find_element_by_name("filter_column_name")
     button = driver.find_element_by_name("products_filter_submit")
 
@@ -131,6 +141,7 @@ def __visit_product_page(driver, product_name: str):
 
     # Attente il caricamento della pagina...
     try:
+        print("[I] Ricerca in corso\n")
         condition = EC.presence_of_element_located((By.LINK_TEXT, product_name))
         WebDriverWait(driver, timeout = TIMEOUT_SEC).until(condition)
 
@@ -138,9 +149,9 @@ def __visit_product_page(driver, product_name: str):
         print("[E] Timeout caricamento pagina")
         return
 
+    print("[I] Prodotto trovato\n")
     item = driver.find_element_by_link_text(product_name)
     link = item.get_attribute("href") 
-    print("(link prodotto: " + link + ")")
     driver.get(link)
 
 DAILY_CHECKBOX_XPATH = "//input[@value='146' and @type='checkbox']"
