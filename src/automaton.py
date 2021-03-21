@@ -1,6 +1,6 @@
 
 from time                                    import sleep
-from pyvirtualdisplay                        import Display
+#from pyvirtualdisplay                        import Display
 from selenium                                import webdriver
 from selenium.webdriver.support.ui           import WebDriverWait
 from selenium.common.exceptions              import TimeoutException
@@ -21,8 +21,9 @@ def prestashop_set_daily(old_product_name: str, new_product_name: str, login_ema
     #display.start()
 
     options = Options()
+    options.add_argument("--start-fullscreen")
+    options.add_argument("--window-size=1920,1080")
     options.add_argument("--headless")
-    options.Headless = True
 
     print("[I] Creazione webdriver Chrome... ", end = '', flush = True)
     driver = webdriver.Chrome(executable_path = "/usr/bin/chromedriver", chrome_options = options)
@@ -100,40 +101,39 @@ def __visit_products_list_page(driver):
 def __visit_product_page(driver, product_name: str):
     print("[I] Ottenimento colonna filtro\n")
 
-    # Attente il caricamento della pagina...
-    #try:
-    #    condition = EC.visibility_of_element_located((By.NAME, "filter_column_name"))
-    #    WebDriverWait(driver, timeout = TIMEOUT_SEC).until(condition)
-    #
-    #except TimeoutException:
-    #    print("[E] Timeout caricamento pagina")
-    #    return
+    #Attente il caricamento della pagina...
+    try:
+        condition = EC.visibility_of_element_located((By.XPATH, "//button[@name = 'products_filter_submit' and @type = 'submit']"))
+        WebDriverWait(driver, timeout = TIMEOUT_SEC).until(condition)
+    
+    except TimeoutException:
+        print("[E] Timeout caricamento pagina")
+        return
 
     # Resettiamo il filtro per evitare ricerche passate non cancellate
-    sleep(5)
     print("[I] Resettaggio filtro al default\n")
     
-    #f1 = driver.find_element_by_id("filter_column_id_product_min")
-    #f2 = driver.find_element_by_id("filter_column_id_product_max")
-    #f3 = driver.find_element_by_name("filter_column_reference")
-    #f4 = driver.find_element_by_name("filter_column_name_category")
-    #f5 = driver.find_element_by_id("filter_column_price_min")
-    #f6 = driver.find_element_by_id("filter_column_price_max")
-    #f7 = driver.find_element_by_id("filter_column_sav_quantity_min")
-    #f8 = driver.find_element_by_id("filter_column_sav_quantity_max")
+    f1 = driver.find_element_by_id("filter_column_id_product_min")
+    f2 = driver.find_element_by_id("filter_column_id_product_max")
+    f3 = driver.find_element_by_name("filter_column_reference")
+    f4 = driver.find_element_by_name("filter_column_name_category")
+    f5 = driver.find_element_by_id("filter_column_price_min")
+    f6 = driver.find_element_by_id("filter_column_price_max")
+    f7 = driver.find_element_by_id("filter_column_sav_quantity_min")
+    f8 = driver.find_element_by_id("filter_column_sav_quantity_max")
 
-    #f1.clear()
-    #f2.clear()
-    #f3.clear()
-    #f4.clear()
-    #f5.clear()
-    #f6.clear()
-    #f7.clear()
-    #f8.clear()
+    f1.clear()
+    f2.clear()
+    f3.clear()
+    f4.clear()
+    f5.clear()
+    f6.clear()
+    f7.clear()
+    f8.clear()
 
     print("[I] Inserimento dati ricerca\n")
-    filter = driver.find_element_by_name("filter_column_name")
-    button = driver.find_element_by_name("products_filter_submit")
+    filter = driver.find_element_by_xpath("//input[@name = 'filter_column_name' and @type = 'text']")
+    button = driver.find_element_by_xpath("//button[@name = 'products_filter_submit' and @type = 'submit']")
 
     filter.clear()
     filter.send_keys(product_name)
@@ -184,12 +184,6 @@ def __flip_save_daily_category(driver):
         return
 
     # Qualche errore strano per la troppa velocità, ma così funziona
+    driver.execute_script("arguments[0].click();", checkbox)
+    driver.execute_script("arguments[0].click();", save)
     sleep(2)
-    #driver.execute_script("arguments[0].click();", checkbox)
-    checkbox.click()
-    sleep(2)
-    #driver.execute_script("arguments[0].click();", save)
-    save.click()
-    sleep(2)
-
-
