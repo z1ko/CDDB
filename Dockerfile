@@ -8,11 +8,11 @@ FROM selenium/standalone-chrome AS base
 USER root
 RUN apt-get update && apt-get install -y python3-pip 
 
-# Crea ambiente di lavoro
+# Crea ambiente di lavoro.
 WORKDIR /app
 COPY ./requirements.txt /app/
 
-# Installa librerie progetto
+# Installa librerie progetto.
 RUN pip3 install -r requirements.txt
  
 ############################# PROD #############################
