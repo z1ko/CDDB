@@ -134,12 +134,13 @@ def get_random_product(ps):
         if product['available_for_order'] == '0':
             continue
 
+        # Solo prodotti con un nome
+        if product['meta_title']['language'][0]['value'] == '':
+            continue
+
         found = True
 
-    # Ottiene link immagine (ITA)
-    link_img = product['link_rewrite']['language'][0]['value']
 
     link = PRESTASHOP_PRODUCT_LINK.format(id = product['id'])
     print("[I] Prodotto {a}, link_shop: {b}".format(a = product['id'], b = link))
-
     return product_data
