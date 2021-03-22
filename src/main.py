@@ -23,4 +23,7 @@ service.update_category_product(ps, product_data)
 
 # Invia ad entrambi i canali
 today = datetime.date.today()
-daily.send_message(product_data, 10, today, updater.bot)
+
+image_token = get_env_panic("PRESTASHOP_IMAGE_TOKEN")
+daily.send_message(image_token, product_data, 10, today, updater.bot)
+
