@@ -27,7 +27,8 @@ sono presenti tutte le variabili necessarie al corretto funzionamento del bot e 
 | Variabile | Descrizione |
 | - | - |
 | TELEGRAM_TOKEN | Token che il bot usa su telegram, ottenuto da *@BotFather*. |
-| PRESTASHOP_TOKEN | Token di accesso al webservice di Prestashop |
+| PRESTASHOP_TOKEN | Token di accesso principale al webservice di Prestashop |
+| PRESTASHOP_IMAGE_TOKEN | Token di accesso al webservice di Prestashop per il solo fine di scaricare le immagini dei prodotti. E' importante non riutilizzare quello principale in quanto quello permetterebbe di eseguire modifiche ai prodotti non autorizzate tramite il link dell'immagine nel messaggio di Telegram. |
 | PRESTASHOP_EMAIL | Email per accedere alla console admin di Prestashop |
 | PRESTASHOP_PASSW | Password per accedere alla console admin di Prestashop |
 | DISCOUNT_CODE  | Codice da inserire ad ogni messaggio, utilizzabile poi nel negozio. |
