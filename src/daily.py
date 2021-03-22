@@ -17,6 +17,7 @@ G = "http://base.google.com/ns/1.0"
 class Product:
     def __init__(self, element: ET.Element) -> None:
 
+        self.id           = 0
         self.name         = ""
         self.link         = ""
         self.price        = 0
@@ -52,6 +53,12 @@ class Product:
             self.image_link = e.text
         else:
             print("[W] Il prodotto non ha il link all'immagine")
+
+        e = element.find("{" + G + "}id")
+        if e != None:
+            self.id = e.text
+        else:
+            print("[W] Il prodotto non ha id")
 
         pass
         
@@ -129,58 +136,31 @@ MSG_HTML_DAILY_ENG = """
 
 """
 
+# Template per ottenere il link alla pagina del negozio di un prodotto
+PRESTASHOP_PRODUCT_LINK = "www.caneva937.com/index.php?id_product={id}&controller=product"
 
-# Invia messaggio italiano per l'offerta del giorno
-def send_daily_message_ita(product: Product, discount: int, today: date, bot: Bot):
+def send_message(product_data, discount: int, today: date, bot: Bot):
+    product = product_data['product']
 
     text = MSG_HTML_DAILY_ITA.format(
         discount = discount,
-        name     = product.name, 
+        name     = product['meta_title']['language'][0]['value'], 
         date     = today.strftime("%d-%m-%Y"),
         code     = get_env_panic("DISCOUNT_CODE")
     )
 
-    buttons = [[ InlineKeyboardButton("Link", url = product.link) ]]
+    shop_link = PRESTASHOP_PRODUCT_LINK.format(id = product['id'])
+    buttons = [[ InlineKeyboardButton("Link", url = shop_link) ]]
     reply_markup = InlineKeyboardMarkup(buttons)
-
+    
     channel_name  = get_env_panic("TELEGRAM_CHANNEL_ITA")
     try:
         bot.send_photo(
             chat_id = channel_name,
-            photo = product.image_link,
+            photo = 'https://media.wsimag.com/attachments/369144ed9353eb6e6e211d0d779364413382b3f8/store/fill/1090/613/a10d4610745a1ed7ab0d925e1d9f682ab7e6486c96f7493b7e978bdf9568/Linfanticidio-nelle-scimmie-non-e-una-rarita.jpg',
             reply_markup = reply_markup,
             parse_mode = 'html',
             caption = text,
         )
     except TelegramError as e:
         print("[E] Errore invio messaggio daily: " + str(e))
-
-
-# Invia messaggio inglese per l'offerta del giorno
-def send_daily_message_eng(product: Product, discount: int, today: date, bot: Bot):
-
-    text = MSG_HTML_DAILY_ENG.format(
-        discount = discount,
-        name     = product.name, 
-        date     = today.strftime("%d-%m-%Y"), 
-        code     = get_env_panic("DISCOUNT_CODE")
-    )
-
-    # Il link inglese è diverso
-    shop_link = product.link.replace("caneva937.com/it", "caneva937.com/en")
-    buttons = [[ InlineKeyboardButton("Link", url = shop_link) ]]
-    reply_markup = InlineKeyboardMarkup(buttons)
-
-    channel_name = get_env_panic("TELEGRAM_CHANNEL_ENG")
-    try:
-        bot.send_photo(
-            chat_id = channel_name,
-            photo = product.image_link,
-            reply_markup = reply_markup,
-            parse_mode = 'html',
-            caption = text,
-        )
-    except TelegramError as e:
-        print("[E] Errore invio messaggio daily: " + str(e))
-
-    pass

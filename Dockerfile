@@ -1,12 +1,11 @@
 
 ############################# BASE #############################
-# Immagien base per avere selenium, firefox, geckodriver       #
+# Installa requisiti progetto                                      #
 ################################################################
 
-FROM selenium/standalone-chrome AS base
+FROM python:3.9.2-slim AS base
 
-USER root
-RUN apt-get update && apt-get install -y python3-pip 
+RUN apt-get update
 
 # Crea ambiente di lavoro.
 WORKDIR /app
@@ -23,4 +22,3 @@ FROM base AS prod
 
 COPY ./src/ /app/
 CMD python3 /app/main.py
-
