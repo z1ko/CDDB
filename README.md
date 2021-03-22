@@ -16,7 +16,7 @@ docker build . -t cddb
 Per eseguire l'immagine in un container e poi eliminarlo:
 
 ```
-docker run --rm -v <config-path>:/code cddb
+docker run --rm -v /etc/cddb:/app/code cddb
 ```
 
 ## Configurazione
@@ -27,12 +27,11 @@ sono presenti tutte le variabili necessarie al corretto funzionamento del bot e 
 | Variabile | Descrizione |
 | - | - |
 | TELEGRAM_TOKEN | Token che il bot usa su telegram, ottenuto da *@BotFather*. |
-| PRESTASHOP_FEED | Link al feed di Prestashop per scaricare il catalogo usando il modulo di Facebook. |
+| PRESTASHOP_TOKEN | Token di accesso al webservice di Prestashop |
 | PRESTASHOP_EMAIL | Email per accedere alla console admin di Prestashop |
 | PRESTASHOP_PASSW | Password per accedere alla console admin di Prestashop |
 | DISCOUNT_CODE  | Codice da inserire ad ogni messaggio, utilizzabile poi nel negozio. |
 | TELEGRAM_CHANNEL_XXX | Nome del canali dove inviare il messaggio di offerta, nella forma *@NomeCanale*, divisi per italiano e inglese. |
-| LAST_PRODUCT_PATH | Percorso per il file storico contenente il nome dell'ultimo prodotto in offerta attivo, necessario per rimuoverlo dalla categoria daily quando viene scelta una nuova offerta. |
 
 
 ## Cronjob
