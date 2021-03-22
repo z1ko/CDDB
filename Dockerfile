@@ -3,9 +3,9 @@
 # Installa requisiti progetto                                      #
 ################################################################
 
-FROM python:3.9.2-slim AS base
+FROM python:3.8.5-slim AS base
 
-RUN apt-get update
+RUN apt-get update && apt-get install -y git
 
 # Crea ambiente di lavoro.
 WORKDIR /app
@@ -14,6 +14,9 @@ COPY ./requirements.txt /app/
 # Installa librerie progetto.
 RUN pip3 install -r requirements.txt
  
+# Installa anche la versione corretta di prestapyt
+RUN pip3 install --ignore-installed git+https://github.com/prestapyt/prestapyt.git@master
+
 ############################# PROD #############################
 # Carica file sorgenti di python                               #
 ################################################################

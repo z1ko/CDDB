@@ -8,13 +8,21 @@ import random
 from prestapyt           import PrestaShopWebServiceDict
 from prestapyt.prestapyt import PrestaShopAuthenticationError
 
-from daily import Product
-
 # ID della categoria DAILY
 PRESTASHOP_DAILY_ID = 146
 
 # Template per ottenere il link alla pagina del negozio di un prodotto
 PRESTASHOP_PRODUCT_LINK = "www.caneva937.com/index.php?id_product={id}&controller=product"
+
+# Ottiene connessione a prestashop
+def connect(token: str):
+    try:
+        ps = PrestaShopWebServiceDict('https://caneva937.com/api', token)
+        return ps
+    except:
+        print("[E] Errore collegamento a prestashop")
+        exit(1)
+
 
 # Ottiene informazioni prodotto
 def __get_product_data(ps, id: str):

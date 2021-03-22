@@ -27,19 +27,13 @@ import service
 from telegram.ext        import Updater
 from env                 import get_env_panic
 from dotenv              import load_dotenv 
-from prestapyt           import PrestaShopWebServiceDict
-from prestapyt.prestapyt import PrestaShopAuthenticationError
 
 # Carica configurazione locale
 load_dotenv("./conf/.env")
 
 # Collega prestashop
-try:
-    prestashop_token = get_env_panic("PRESTASHOP_TOKEN")
-    ps = PrestaShopWebServiceDict('https://caneva937.com/api', prestashop_token)
-
-except PrestaShopAuthenticationError as e:
-    print("[E] Errore collegamento a prestashop: " + str(e))
+prestashop_token = get_env_panic("PRESTASHOP_TOKEN")
+ps = service.connect(prestashop_token)
 
 # Collega a telegram
 telegram_token = get_env_panic("TELEGRAM_TOKEN")
