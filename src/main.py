@@ -6,6 +6,30 @@ from telegram.ext        import Updater
 from env                 import get_env_panic
 from dotenv              import load_dotenv 
 
+# Scheletro messaggio italiano
+MSG_HTML_DAILY_ITA = """
+
+⭐ <b>OFFERTA GIORNALIERA {date}</b> ⭐
+<u>{name}</u>
+
+🟠 Sconto extra:  {discount}%
+
+<b>CODICE SCONTO:</b> {code}
+
+"""
+
+# Scheletro messaggio inglese
+MSG_HTML_DAILY_ENG = """
+
+⭐ <b>DAILY OFFER {date}</b> ⭐
+<u>{name}</u>
+
+🟠 Extra discount:  {discount}%
+
+<b>DISCOUNT CODE:</b> {code}
+
+"""
+
 # Carica configurazione locale
 load_dotenv("./conf/.env")
 
@@ -22,8 +46,12 @@ product_data = service.get_random_product(ps)
 service.update_category_product(ps, product_data)
 
 # Invia ad entrambi i canali
+image_token = get_env_panic("PRESTASHOP_IMAGE_TOKEN")
 today = datetime.date.today()
 
-image_token = get_env_panic("PRESTASHOP_IMAGE_TOKEN")
-daily.send_message(image_token, product_data, 10, today, updater.bot)
+channel_id = get_env_panic("TELEGRAM_CHANNEL_ITA")
+daily.send_message(image_token, MSG_HTML_DAILY_ITA, channel_id, product_data, 10, today, updater.bot)
+
+channel_id = get_env_panic("TELEGRAM_CHANNEL_ENG")
+daily.send_message(image_token, MSG_HTML_DAILY_ENG, channel_id, product_data, 10, today, updater.bot)
 

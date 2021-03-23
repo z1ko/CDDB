@@ -9,29 +9,6 @@ from telegram       import InlineKeyboardButton, InlineKeyboardMarkup, Bot
 from env            import get_env_panic
 from datetime       import date
 
-# Scheletro messaggio italiano
-MSG_HTML_DAILY_ITA = """
-
-⭐ <b>OFFERTA GIORNALIERA {date}</b> ⭐
-<u>{name}</u>
-
-🟠 Sconto extra:  {discount}%
-
-<b>CODICE SCONTO:</b> {code}
-
-"""
-
-# Scheletro messaggio inglese
-MSG_HTML_DAILY_ENG = """
-
-⭐ <b>DAILY OFFER {date}</b> ⭐
-<u>{name}</u>
-
-🟠 Extra discount:  {discount}%
-
-<b>DISCOUNT CODE:</b> {code}
-
-"""
 
 # Template per ottenere il link alla pagina del negozio di un prodotto
 PRESTASHOP_PRODUCT_LINK = "www.caneva937.com/index.php?id_product={id}&controller=product"
@@ -39,10 +16,10 @@ PRESTASHOP_PRODUCT_LINK = "www.caneva937.com/index.php?id_product={id}&controlle
 # Template per ottenere il link all'immagine di base di un prodotto, richiede chiave API per le immagini
 PRESTASHOP_PRODUCT_IMAGE_LINK = "https://caneva937.com/api/images/products/{id}/{image_id}?ws_key={api_key}"
 
-def send_message(image_token, product_data, discount: int, today: date, bot: Bot):
+def send_message(image_token, template: str, channel_id: str, product_data, discount: int, today: date, bot: Bot):
     product = product_data['product']
 
-    text = MSG_HTML_DAILY_ITA.format(
+    text = template.format(
         discount = discount,
         name     = product['meta_title']['language'][0]['value'], 
         date     = today.strftime("%d-%m-%Y"),
@@ -62,10 +39,9 @@ def send_message(image_token, product_data, discount: int, today: date, bot: Bot
     )
 
     print("[I] link_immagine = " + image_link)
-    channel_name  = get_env_panic("TELEGRAM_CHANNEL_ITA")
     try:
         bot.send_photo(
-            chat_id = channel_name,
+            chat_id = channel_id,
             photo = image_link,
             reply_markup = reply_markup,
             parse_mode = 'html',
