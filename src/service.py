@@ -135,7 +135,7 @@ def get_random_product(ps):
             continue
 
         # Solo prodotti con un nome
-        if product['meta_title']['language'][0]['value'] == '':
+        if product['name']['language'][0]['value'] == '' or product['name']['language'][1]['value'] == '':
             continue
 
         found = True

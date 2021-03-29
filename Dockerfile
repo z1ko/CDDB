@@ -23,5 +23,6 @@ RUN pip3 install --ignore-installed git+https://github.com/prestapyt/prestapyt.g
 
 FROM base AS prod
 
+RUN echo "ciao"
 COPY ./src/ /app/
 CMD python3 /app/main.py

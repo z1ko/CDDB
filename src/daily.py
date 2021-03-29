@@ -16,12 +16,12 @@ PRESTASHOP_PRODUCT_LINK = "www.caneva937.com/index.php?id_product={id}&controlle
 # Template per ottenere il link all'immagine di base di un prodotto, richiede chiave API per le immagini
 PRESTASHOP_PRODUCT_IMAGE_LINK = "https://caneva937.com/api/images/products/{id}/{image_id}?ws_key={api_key}"
 
-def send_message(image_token, template: str, channel_id: str, product_data, discount: int, today: date, bot: Bot):
+def send_message(image_token, lang_idx: int, template: str, channel_id: str, product_data, discount: int, today: date, bot: Bot):
     product = product_data['product']
 
     text = template.format(
         discount = discount,
-        name     = product['meta_title']['language'][0]['value'], 
+        name     = product['name']['language'][lang_idx]['value'], 
         date     = today.strftime("%d-%m-%Y"),
         code     = get_env_panic("DISCOUNT_CODE")
     )

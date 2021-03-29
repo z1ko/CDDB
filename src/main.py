@@ -50,8 +50,10 @@ image_token = get_env_panic("PRESTASHOP_IMAGE_TOKEN")
 today = datetime.date.today()
 
 channel_id = get_env_panic("TELEGRAM_CHANNEL_ITA")
-daily.send_message(image_token, MSG_HTML_DAILY_ITA, channel_id, product_data, 10, today, updater.bot)
+print("[I] Sending message to " + channel_id)
+daily.send_message(image_token, 0, MSG_HTML_DAILY_ITA, channel_id, product_data, 10, today, updater.bot)
 
 channel_id = get_env_panic("TELEGRAM_CHANNEL_ENG")
-daily.send_message(image_token, MSG_HTML_DAILY_ENG, channel_id, product_data, 10, today, updater.bot)
+print("[I] Sending message to " + channel_id)
+daily.send_message(image_token, 1, MSG_HTML_DAILY_ENG, channel_id, product_data, 10, today, updater.bot)
 
