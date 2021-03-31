@@ -47,7 +47,7 @@ Solitamente il bot deve essere eseguito una volta al giorno, per questo basta cr
 
 Le seguenti features sono pianificate:
 
-- [x] Webscapper per eliminare il bisogno di cambiare manualmente le tag su prestashop (Moduli di prestashop sono ***cursati*** e non voglio toccarli) 
+- [x] <s>Webscapper per eliminare il bisogno di cambiare manualmente le tag su prestashop (Moduli di prestashop sono ***cursati*** e non voglio toccarli)</s> 
 - [ ] File di configurazione per il layout del messaggio promozionale
 - [x] Easter egg 
 
