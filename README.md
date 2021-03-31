@@ -32,7 +32,7 @@ sono presenti tutte le variabili necessarie al corretto funzionamento del bot e 
 | PRESTASHOP_EMAIL | Email per accedere alla console admin di Prestashop |
 | PRESTASHOP_PASSW | Password per accedere alla console admin di Prestashop |
 | DISCOUNT_CODE  | Codice da inserire ad ogni messaggio, utilizzabile poi nel negozio. |
-| TELEGRAM_CHANNEL_XXX | Nome del canali dove inviare il messaggio di offerta, nella forma *@NomeCanale*, divisi per italiano e inglese. |
+| TELEGRAM_CHANNEL_XXX | Nome del canali dove inviare il messaggio di offerta, nella forma *@NomeCanale* o chat_id *-100XXXXXXXXX*, divisi per italiano e inglese. |
 
 
 ## Cronjob
