@@ -1,6 +1,6 @@
 # CDDB - Caneva Daily Discount Bot
 
-Questo semplice bot una volta avviato ottiene un prodotto casuale dal database di Prestashop e genera un messaggio di offerta giornaliera sui canali telegram indicati con un link alla pagina del negozio. Inoltre tramite un webdriver accede al sito di Prestashop per amministrare la categoria di riferimento del codice sconto aggiungendo e rimuovendo prodotti. 
+Questo semplice bot una volta avviato ottiene un prodotto casuale dal database di Prestashop e genera un messaggio di offerta giornaliera sui canali telegram indicati con un link alla pagina del negozio. Inoltre tramite webservice accede al sito di Prestashop e gestisce la categoria di riferimento del codice sconto aggiungendo e rimuovendo prodotti. 
 
 ## Installazione e Distribuzione - Docker
 
